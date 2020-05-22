@@ -5,6 +5,7 @@ const createTaskElement = task => {
 			  dueDate = document.createElement('h4'),
 			  removeBtn = document.createElement('button'),
 			  editBtn = document.createElement('button');
+			  
 		title.innerHTML = task.title;
 		dueDate.innerHTML = task.date;
 		removeBtn.innerHTML = 'Remove';
@@ -40,7 +41,7 @@ const createEditForm = task => {
 	return editForm;
 }
 
-const displayTasks = (() => {
+const displayTaskList = (() => {
 	const h1 = document.createElement('h1'),
 		  createDiv = document.createElement('div'),
 		  createTaskBtn = document.createElement('button'),
@@ -70,4 +71,4 @@ const displayTasks = (() => {
 	return [ h1, createDiv, taskForm ];
 })();
 
-export { createEditForm, createTaskElement, displayTasks };
+export { createEditForm, createTaskElement, displayTaskList };

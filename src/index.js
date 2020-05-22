@@ -1,10 +1,10 @@
-import { displayTasks, createTaskElement, createEditForm } from './taskElements.js';
+import { displayTaskList, createTaskElement, createEditForm } from './taskElements.js';
 import { task, project } from './factoryFunctions.js';
 
 const todoList = (() => {
 	const body = document.querySelector('body');
 
-	displayTasks.forEach((element) => {
+	displayTaskList.forEach((element) => {
 		body.appendChild(element);
 	});
 
@@ -48,7 +48,9 @@ const todoList = (() => {
 			newEditForm.classList.toggle('noDisplay');
 		});
 
-		document.querySelector('.editTask').addEventListener('click', () => {
+		newEditForm.childNodes[3].addEventListener('click', () => {
+			console.log(`Old info: ${newTask.title}, ${newTask.date}`);
+
 			newTask.title = newEditForm.childNodes[1].value;
 			newTask.date = newEditForm.childNodes[2].value;
 
