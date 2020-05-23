@@ -1,8 +1,9 @@
-const task = (taskTitle = `Untitled`, taskDate = '05/20/20') => {
+const task = (taskTitle = `Untitled`, taskDate, taskDesc) => {
 	let title = taskTitle;
 	let date = taskDate;
+	let description = taskDesc;
 
-	return { title, date }
+	return { title, date, description };
 }
 
 const project = (projectName = 'default') => {
@@ -14,7 +15,7 @@ const project = (projectName = 'default') => {
 	}
 
 	const removeTask = task => {
-		tasks.pop(task);
+		tasks.splice(tasks[tasks.indexOf(task)], 1);
 	}
 	return { name, tasks, addTask, removeTask };
 }

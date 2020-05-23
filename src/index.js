@@ -16,7 +16,8 @@ const todoList = (() => {
 
 	document.querySelector('.addTask').addEventListener("click", () => {
 		let title = document.querySelector('input'),
-			date = document.querySelectorAll('input')[1];
+			date = document.querySelectorAll('input')[1],
+			description = document.querySelector('textarea');
 
 		if (!title.value) {
 			title.value = undefined;
@@ -24,10 +25,14 @@ const todoList = (() => {
 		if (!date.value) {
 			date.value = undefined;
 		}
+		if(!description.value) {
+			description.value = undefined;
+		}
 
-		const newTask = task(title.value, date.value);
+		const newTask = task(title.value, date.value, description.value);
 		title.value = '';
 		date.value = '';
+		description.value = '';
 		
 		defaultProject.addTask(newTask);
 		const newTaskDiv = createTaskElement(newTask);
@@ -48,8 +53,7 @@ const todoList = (() => {
 			newEditForm.classList.toggle('noDisplay');
 		});
 
-		newEditForm.childNodes[3].addEventListener('click', () => {
-			console.log(`Old info: ${newTask.title}, ${newTask.date}`);
+		newEditForm.childNodes[4].addEventListener('click', () => {
 
 			newTask.title = newEditForm.childNodes[1].value;
 			newTask.date = newEditForm.childNodes[2].value;
