@@ -2,8 +2,9 @@ const task = (taskTitle = `Untitled`, taskDate, taskDesc) => {
 	let title = taskTitle;
 	let date = taskDate;
 	let description = taskDesc;
+	let priority = 'None';
 
-	return { title, date, description };
+	return { title, date, description, priority };
 }
 
 const project = (projectName = 'default') => {
