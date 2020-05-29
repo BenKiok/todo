@@ -1,84 +1,40 @@
-import { displayTaskList, createTaskElement, createEditForm } from './taskElements.js';
-import { task, project } from './factoryFunctions.js';
+import newProjectForm from './newProjectForm.js';
+import taskForm from './taskForm.js';
+import { navbar, menuToggle } from './navbar.js';
+import { taskContainer, appendTask } from './tasks.js';
+import taskBtn from './taskBtn.js';
 
-const todoList = (() => {
-	const body = document.querySelector('body');
+const todoApp = (() => {
+	const body = document.querySelector('body'),
+		  main = document.createElement('div'),
+		  // *** delete ***
+		  task1 = {
+		  	title: 'Example 1',
+		  	date: '05/29/20',
+		  	description: 'This is a sample description to test the appendTask function',
+		  	priority: 'none'
+		  },
+		  task2 = {
+		  	title: 'Example 2',
+		  	date: '',
+		  	description: 'This is a sample description to test the appendTask function',
+		  	priority: 'none'
+		  },
+		  task3 = {
+		  	title: 'Example 3',
+		  	date: '05/29/20',
+		  	description: '',
+		  	priority: 'none'
+		  };
 
-	displayTaskList.forEach((element) => {
-		body.appendChild(element);
-	});
+	main.id = 'main';
 
-	const defaultProject = project();
+	// to test appendTask() and DOM manipulation
+	appendTask(task1);
+	appendTask(task2);
+	appendTask(task3);
 
-	document.querySelector('#makeTask').addEventListener("click", () => {
-		document.querySelector("#form").classList.toggle("noDisplay");
-	});
+	main.append(navbar, menuToggle, taskContainer, taskBtn);
+	body.appendChild(main);
 
-	document.querySelector('.addTask').addEventListener("click", () => {
-		let title = document.querySelector('input'),
-			date = document.querySelectorAll('input')[1],
-			description = document.querySelector('textarea'),
-			priority = document.querySelector('select');
-
-		if (!title.value) {
-			title.value = undefined;
-		}
-		if (!date.value) {
-			date.value = undefined;
-		}
-		if (!description.value) {
-			description.value = undefined;
-		}
-
-		const newTask = task(title.value, date.value, description.value, priority.value);
-		title.value = '';
-		date.value = '';
-		description.value = '';
-		priority.value = 'None';
-		
-		defaultProject.addTask(newTask);
-		const newTaskDiv = createTaskElement(newTask);
-		const newEditForm = createEditForm(newTask);
-		newTaskDiv.appendChild(newEditForm);
-		body.appendChild(newTaskDiv);
-
-		newTaskDiv.childNodes[0].addEventListener('click', () => {
-			newTaskDiv.childNodes[0].classList.toggle('completed');
-		});
-
-		newTaskDiv.childNodes[1].addEventListener('click', () => {
-			body.removeChild(newTaskDiv);
-			defaultProject.removeTask(newTask);
-		});
-
-		newTaskDiv.childNodes[2].addEventListener('click', () => {
-			newEditForm.classList.toggle('noDisplay');
-		});
-
-		newEditForm.childNodes[5].addEventListener('click', () => {
-
-			newTask.title = newEditForm.childNodes[1].value;
-			newTask.date = newEditForm.childNodes[2].value;
-			newTask.description = newEditForm.childNodes[3].value;
-			newTask.priority = newEditForm.querySelector('select').value;
-			console.log(newTask.priority);
-
-			newTaskDiv.childNodes[0].childNodes[0].innerHTML = newTask.title;
-			newTaskDiv.childNodes[0].childNodes[1].innerHTML = newTask.date;
-			newTaskDiv.childNodes[0].childNodes[2].innerHTML = newTask.description;
-			newTaskDiv.childNodes[0].childNodes[3].innerHTML = `Priority: ${newTask.priority}`;
-
-			newEditForm.childNodes[1].value = newTask.title;
-			newEditForm.childNodes[2].value = newTask.date;
-			newEditForm.childNodes[3].value = newTask.description;
-			newEditForm.querySelector('select').value = newTask.priority;
-
-			newEditForm.classList.toggle('noDisplay');
-		});
-
-		// set event listener for edit button to toggle form display
-		// 	with the current title and date of the task
-		// lastly set an event listener for the edit form submit button
-		//	so that the task and the task div update with the form info
-	});
 })();
