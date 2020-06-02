@@ -82,7 +82,7 @@ const todoApp = (() => {
 
 			// adds task to inbox and vice versa
 			// newTask.addToProject(projectArr[0]);
-			// projectArr[0].addTask(newTask);
+			projectArr[0].addTask(newTask);
 
 			// *** to be implemented later ***
 			// if (project.value != '') {
@@ -107,6 +107,11 @@ const todoApp = (() => {
 
 			});
 
+			newTaskDiv.querySelectorAll('button')[1].addEventListener('click', () => {
+				projectArr[0].removeTask(newTask);
+				newTaskDiv.remove();
+			});
+
 			editForm.querySelector('button').addEventListener('click', () => {
 				newTask.title = editForm.querySelector('input').value;
 				newTask.date = editForm.querySelectorAll('input')[1].value;
@@ -116,7 +121,7 @@ const todoApp = (() => {
 				newTaskDiv.querySelector('h4').innerHTML = newTask.description;
 
 				console.log(newTask);
-				
+
 				editForm.remove();
 			});
 
