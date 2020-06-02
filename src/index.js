@@ -1,5 +1,4 @@
-import newProjectForm from './newProjectForm.js';
-import taskForm from './taskForm.js';
+import { newProjectForm, taskForm, editForm } from './forms.js';
 import { navbar, menuToggle, addProjectToNavbar } from './navbar.js';
 import { taskContainer, appendTask } from './tasks.js';
 import taskBtn from './taskBtn.js';
@@ -27,11 +26,7 @@ const todoApp = (() => {
 
 	// event listeners (bulk of the logic)
 	navbar.querySelector('button').addEventListener('click', () => {
-		if (body.querySelector('#newProject')) {
-			newProjectForm.remove();
-		} else {
-			body.appendChild(newProjectForm);
-		}
+		body.querySelector('#newProject') ? newProjectForm.remove() : body.appendChild(newProjectForm);
 	});
 
 	newProjectForm.querySelector('button').addEventListener('click', () => {
@@ -56,11 +51,7 @@ const todoApp = (() => {
 	});
 
 	taskBtn.querySelector('button').addEventListener('click', () => {
-		if (body.querySelector('#form')) {
-			taskForm.remove();
-		} else {
-			body.appendChild(taskForm);
-		}
+		body.querySelector('#create') ? taskForm.remove() : body.appendChild(taskForm);
 	});
 
 	taskForm.querySelector('button').addEventListener('click', () => {
@@ -87,7 +78,7 @@ const todoApp = (() => {
 			if (desc.value) {
 				newTask.description = desc.value;
 			}
-			// *** add tertiary statement for priority here
+			// *** add ternary statement for priority here
 
 			// adds task to inbox and vice versa
 			// newTask.addToProject(projectArr[0]);
@@ -100,19 +91,41 @@ const todoApp = (() => {
 			// 	console.log(projectArr[project.indexOf(project.value)]);
 			// }
 
-			appendTask(newTask);
+			const newTaskDiv = appendTask(newTask);
 			title.value = '';
 			date.value = '';
 			desc.value = '';
 			// project.value = '';
 			taskForm.remove();
 
-			// taskForm.querySelector('button').addEventListener('click', () => {
-			// // calls upon same form to edit task
-			// });
+			newTaskDiv.querySelector('button').addEventListener('click', () => {
+				body.querySelector('#edit') ? editForm.remove() : body.appendChild(editForm);
+			
+				editForm.querySelector('input').value = newTask.title;
+			 	editForm.querySelectorAll('input')[1].value = newTask.date;
+			 	editForm.querySelector('textarea').value = newTask.description;
 
-			// taskForm.querySelector('#projectSelection').addEventListener('click', () => {
-			// 	div.remove();
+			});
+
+			editForm.querySelector('button').addEventListener('click', () => {
+				newTask.title = editForm.querySelector('input').value;
+				newTask.date = editForm.querySelectorAll('input')[1].value;
+				newTask.description = editForm.querySelector('textarea').value;
+				newTaskDiv.querySelector('h2').innerHTML = newTask.title;
+				newTaskDiv.querySelector('h3').innerHTML = newTask.date;
+				newTaskDiv.querySelector('h4').innerHTML = newTask.description;
+
+				console.log(newTask);
+				
+				editForm.remove();
+			});
+
+			editForm.querySelectorAll('button')[1].addEventListener('click', () => {
+				editForm.remove();
+			});
+
+			// newTaskDiv.querySelectorAll('button')[1].addEventListener('click', () => {
+			// 	newTaskDiv.remove();
 			// 	projectArr.forEach(project => {
 			// 		project.tasks.forEach(task => {
 			// 			if (task == newTask) {
