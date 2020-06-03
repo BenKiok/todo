@@ -79,9 +79,7 @@ const todoApp = (() => {
 				newTask.description = desc.value;
 			}
 			// *** add ternary statement for priority here
-
-			// adds task to inbox and vice versa
-			// newTask.addToProject(projectArr[0]);
+			
 			projectArr[0].addTask(newTask);
 
 			// *** to be implemented later ***
