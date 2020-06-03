@@ -4,8 +4,25 @@
 	font-family: Arial, 'sans-serif';
 }
 
+input[type='checkbox'] {
+	height: 20px;
+	width: 20px;
+	margin-left: -12px;
+	margin-right: 14px;
+	margin-bottom: 16px;
+}
+
 .hide {
 	display: none;
+}
+
+.completed {
+	text-decoration: line-through;
+}
+
+.task {
+	display: flex;
+	align-items: center;
 }
 
 .taskHead {

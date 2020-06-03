@@ -10,7 +10,7 @@ const todoApp = (() => {
 		  	main.id = 'main';
 	const projectArr = [ Project('Index') ];
 
-	// *** delete ***
+	// // *** delete ***
 	// const task1 = Task('Example 1');
 	// 	task1.date = '05/29/20';
 	// 	task1.description = 'This is a sample description to test the appendTask function';
@@ -19,7 +19,7 @@ const todoApp = (() => {
 	// const task3 = Task('Example 3');
 	// 	task3.date = '05/29/20';
 
-	// *** to test appendTask() and DOM manipulation ***
+	// // *** to test appendTask() and DOM manipulation ***
 	// appendTask(task1);
 	// appendTask(task2);
 	// appendTask(task3);
@@ -97,6 +97,15 @@ const todoApp = (() => {
 			desc.value = '';
 			// project.value = '';
 			taskForm.remove();
+
+			newTaskDiv.querySelector('input').addEventListener('click', () => {
+				newTask.completed = !newTask.completed;
+				console.log(newTask.completed);
+
+				newTaskDiv.querySelector('h2').classList.toggle('completed');
+				newTaskDiv.querySelector('h3').classList.toggle('completed');
+				newTaskDiv.querySelector('h4').classList.toggle('completed');
+			});
 
 			newTaskDiv.querySelector('button').addEventListener('click', () => {
 				body.querySelector('#edit') ? editForm.remove() : body.appendChild(editForm);
